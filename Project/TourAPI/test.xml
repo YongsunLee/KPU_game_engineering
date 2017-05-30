@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<result>
+    <userquery><![CDATA[도봉구 방학2동 659-35]]></userquery>
+    <total>1</total>
+    <items>
+        <item>
+            <address><![CDATA[서울특별시 도봉구 방학2동 659-35]]></address>
+            <addrdetail>
+                <country><![CDATA[대한민국]]></country>
+                <sido><![CDATA[서울특별시]]></sido>
+                <sigugun><![CDATA[도봉구]]></sigugun>
+                <dongmyun><![CDATA[방학2동]]></dongmyun>
+                <rest><![CDATA[659-35]]></rest>
+            </addrdetail>
+            <isRoadAddress>false</isRoadAddress>
+            <point>
+                <x>127.0383518</x>
+                <y>37.6667647</y>
+            </point>
+        </item>
+    </items>
+</result>
