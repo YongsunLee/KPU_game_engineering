@@ -66,7 +66,6 @@ class Ui_MainWindow(object):
         self.comboBox_smallService.setGeometry(QtCore.QRect(80, 60, 231, 21))
         self.comboBox_smallService.setObjectName("comboBox_smallService")
 
-        self.comboBox_smallService.addItem("테스트", 1)
 
 
         self.label_City = QtWidgets.QLabel(self.groupBox_2)
@@ -82,8 +81,25 @@ class Ui_MainWindow(object):
         self.comboBox_Service.setAcceptDrops(False)
         self.comboBox_Service.setObjectName("comboBox_Service")
 
+        self.comboBox_Service.addItem("서비스 선택")
         self.comboBox_Service.addItem("관광지", 12)
         self.comboBox_Service.addItem("숙박", 32)
+
+        def on_comboBox_currentIndexChanged():
+            Service = self.comboBox_Service.currentText()
+            if (str(Service) == "관광지"):
+                self.comboBox_smallService.clear()
+                self.comboBox_smallService.addItem("자연관광지")
+            elif (str(Service) == "숙박"):
+                self.comboBox_smallService.clear()
+                self.comboBox_smallService.addItem("관광호텔")
+                self.comboBox_smallService.addItem("펜션")
+                self.comboBox_smallService.addItem("여관")
+                self.comboBox_smallService.addItem("모텔")
+                self.comboBox_smallService.addItem("민박")
+                self.comboBox_smallService.addItem("게스트하우스")
+
+        self.comboBox_Service.currentIndexChanged.connect(on_comboBox_currentIndexChanged)
 
         self.label_Area = QtWidgets.QLabel(self.groupBox_2)
         self.label_Area.setGeometry(QtCore.QRect(50, 100, 31, 21))
@@ -115,6 +131,10 @@ class Ui_MainWindow(object):
 
         self.retranslateUi(MainWindow)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
+
+
+
+
 
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
