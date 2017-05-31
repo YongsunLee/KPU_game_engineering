@@ -6,7 +6,7 @@ import webbrowser
 
 def main():
     list = []
-    areaCode = 35
+    areaCode = 1
     #url = "http://api.visitkorea.or.kr/openapi/service/rest/KorService/areaCode?ServiceKey=GY1KfpRH3x3fR4MpYAhLtGfpn%2BgzOAUXv86hfjkvhfZEi6BZSv2oEY%2BO28UjOyNhogZFh81Fv04pz5us%2FkIYkA%3D%3D&areaCode=" + str(areaCode) + "&numOfRows=100&MobileOS=ETC&MobileApp=AppTesting"
 
     url = "http://api.visitkorea.or.kr/openapi/service/rest/KorService/areaBasedList?ServiceKey=GY1KfpRH3x3fR4MpYAhLtGfpn%2BgzOAUXv86hfjkvhfZEi6BZSv2oEY%2BO28UjOyNhogZFh81Fv04pz5us%2FkIYkA%3D%3D&areaCode="+ str(areaCode) +"&numOfRows=100&MobileOS=ETC&MobileApp=AppTesting"
@@ -24,15 +24,22 @@ def main():
 
     x_points = []
     y_points = []
+    nameList = []
 
     for x_point in root.iter("mapx"):
         x_points.append(x_point.text)
     for y_point in root.iter("mapy"):
         y_points.append(y_point.text)
+    for name in root.iter("title"):
+        nameList.append(name.text)
 
     url_3 = Navermap.Set_map(x_points[0], y_points[0])
-    print(x_points[0])
-    print(y_points[0])
+    num = 0
+    for i in nameList:
+        print(x_points[num])
+        print(y_points[num])
+        print(nameList[num])
+        num += 1
     webbrowser.open_new(url_3)
 
     #for i in iter:
