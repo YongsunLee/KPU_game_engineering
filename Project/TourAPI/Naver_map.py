@@ -7,7 +7,7 @@ import webbrowser
 def Set_map():
     client_id = "SmUpG9NpShByzd1X1LbU"
     client_secret = "AcoyKCqpsb"
-    address = "도봉구 방학2동 659-35"    #주소입력
+    address = "정왕1동"    #주소입력
     encText = urllib.parse.quote(address)
     # url = "https://openapi.naver.com/v1/map/geocode?query=" + encText  # json 결과
     url = "https://openapi.naver.com/v1/map/geocode.xml?query=" + encText # xml 결과
@@ -18,11 +18,11 @@ def Set_map():
     rescode = response.getcode()
     if (rescode == 200):
         response_body = response.read()
-        f = open("test.xml","wb")
+        f = open("map.xml","wb")
         f.write(response_body)
         f.close()
 
-        tree = ET.parse("test.xml")
+        tree = ET.parse("map.xml")
         root = tree.getroot()
 
         for x_point in root.iter("x"):

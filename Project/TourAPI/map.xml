@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<result>
+    <userquery><![CDATA[정왕1동]]></userquery>
+    <total>1</total>
+    <items>
+        <item>
+            <address><![CDATA[경기도 시흥시 정왕1동 ]]></address>
+            <addrdetail>
+                <country><![CDATA[대한민국]]></country>
+                <sido><![CDATA[경기도]]></sido>
+                <sigugun><![CDATA[시흥시]]></sigugun>
+                <dongmyun><![CDATA[정왕1동]]></dongmyun>
+                <rest><![CDATA[]]></rest>
+            </addrdetail>
+            <isRoadAddress>false</isRoadAddress>
+            <point>
+                <x>126.7438375</x>
+                <y>37.3403070</y>
+            </point>
+        </item>
+    </items>
+</result>
