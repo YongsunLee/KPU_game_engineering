@@ -7,12 +7,9 @@
 # WARNING! All changes made in this file will be lost!
 
 from PyQt5 import QtCore, QtGui, QtWidgets
-import json
-
-class City:
-    def __init__(self):
-        self.cityName = " "
-        self.indexNum = 0
+import urllib.request
+import xml.etree.ElementTree as ET
+import comboboxSettingFunc
 
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
@@ -72,6 +69,8 @@ class Ui_MainWindow(object):
         self.comboBox_smallService.setGeometry(QtCore.QRect(80, 60, 231, 21))
         self.comboBox_smallService.setObjectName("comboBox_smallService")
 
+        self.comboBox_smallService.addItem("중분류 선택")
+
         self.label_City = QtWidgets.QLabel(self.groupBox_2)
         self.label_City.setGeometry(QtCore.QRect(40, 140, 41, 21))
         self.label_City.setObjectName("label_City")
@@ -80,38 +79,29 @@ class Ui_MainWindow(object):
         self.comboBox_Area.setGeometry(QtCore.QRect(80, 100, 231, 21))
         self.comboBox_Area.setObjectName("comboBox_Area")
 
-        self.comboBox_Area.addItem("서울")
-        self.comboBox_Area.addItem("인천")
-        self.comboBox_Area.addItem("대전")
-        self.comboBox_Area.addItem("대구")
-        self.comboBox_Area.addItem("광주")
-        self.comboBox_Area.addItem("부산")
-        self.comboBox_Area.addItem("울산")
-        self.comboBox_Area.addItem("세종특별자치시")
-        self.comboBox_Area.addItem("경기도")
-        self.comboBox_Area.addItem("강원도")
-        self.comboBox_Area.addItem("충청북도")
-        self.comboBox_Area.addItem("충청남도")
-        self.comboBox_Area.addItem("경상북도")
-        self.comboBox_Area.addItem("경상남도")
-        self.comboBox_Area.addItem("전라북도")
-        self.comboBox_Area.addItem("전라남도")
-        self.comboBox_Area.addItem("제주도")
+        self.comboBox_Area.addItem("지역", 0)
+        self.comboBox_Area.addItem("서울", 1)
+        self.comboBox_Area.addItem("인천", 2)
+        self.comboBox_Area.addItem("대전", 3)
+        self.comboBox_Area.addItem("대구", 4)
+        self.comboBox_Area.addItem("광주", 5)
+        self.comboBox_Area.addItem("부산", 6)
+        self.comboBox_Area.addItem("울산", 7)
+        self.comboBox_Area.addItem("세종특별자치시", 8)
+        self.comboBox_Area.addItem("경기도", 31)
+        self.comboBox_Area.addItem("강원도", 32)
+        self.comboBox_Area.addItem("충청북도", 33)
+        self.comboBox_Area.addItem("충청남도", 34)
+        self.comboBox_Area.addItem("경상북도", 35)
+        self.comboBox_Area.addItem("경상남도", 36)
+        self.comboBox_Area.addItem("전라북도", 37)
+        self.comboBox_Area.addItem("전라남도", 38)
+        self.comboBox_Area.addItem("제주도", 39)
 
         def on_comboBox_currentIndexChanged_Area():
-            global city
-            Area = self.comboBox_Area.currentText()
-            city = City()
-            if (str(Area) == "서울"):
-                f = open("city_seoul.txt", "r")
-                cityData = json.load(f)
-                print(cityData)
-                for i in cityData:
-                    self.comboBox_City.addItem()
-                f.close()
-            #elif (str(Area) == "인천"):
-            #elif (str(Area) == "대전"):
-            #elif (str(Area) == "대구"):
+            Area = self.comboBox_Area.currentData()
+            self.comboBox_City.clear()
+            comboboxSettingFunc.CitycomboboxSettingFunc(Area, self.comboBox_City)
 
         self.comboBox_Area.currentIndexChanged.connect(on_comboBox_currentIndexChanged_Area)
 
@@ -125,49 +115,9 @@ class Ui_MainWindow(object):
         self.comboBox_Service.addItem("숙박", 32)
 
         def on_comboBox_currentIndexChanged():
-            Service = self.comboBox_Service.currentText()
-            if (str(Service) == "관광지"):
-                self.comboBox_smallService.clear()
-                self.comboBox_smallService.addItem("국립공원", 1010100)
-                self.comboBox_smallService.addItem("도립공원", 1010200)
-                self.comboBox_smallService.addItem("군립공원", 1010300)
-                self.comboBox_smallService.addItem("산", 1010400)
-                self.comboBox_smallService.addItem("자연생태관광지", 1010500)
-                self.comboBox_smallService.addItem("자연휴양림", 1010600)
-                self.comboBox_smallService.addItem("수목원", 1010700)
-                self.comboBox_smallService.addItem("폭포", 1010800)
-                self.comboBox_smallService.addItem("계곡", 1010900)
-                self.comboBox_smallService.addItem("약수터",1011000)
-                self.comboBox_smallService.addItem("해안절경", 1011100)
-                self.comboBox_smallService.addItem("해수욕장", 1011200)
-                self.comboBox_smallService.addItem("섬", 1011300)
-                self.comboBox_smallService.addItem("항구/포구", 1011400)
-                self.comboBox_smallService.addItem("어촌", 1011500)
-                self.comboBox_smallService.addItem("등대", 1011600)
-                self.comboBox_smallService.addItem("호수", 1011700)
-                self.comboBox_smallService.addItem("강", 1011800)
-                self.comboBox_smallService.addItem("동굴", 1011900)
-            elif (str(Service) == "숙박"):
-                self.comboBox_smallService.clear()
-                self.comboBox_smallService.addItem("관광호텔", 2010100)
-                self.comboBox_smallService.addItem("수상관광호텔", 2010200)
-                self.comboBox_smallService.addItem("전통호텔", 2010300)
-                self.comboBox_smallService.addItem("가족호텔", 2010400)
-                self.comboBox_smallService.addItem("콘도미니엄", 2010500)
-                self.comboBox_smallService.addItem("유스호스텔", 2010600)
-                self.comboBox_smallService.addItem("펜션", 2010700)
-                self.comboBox_smallService.addItem("여관", 2010800)
-                self.comboBox_smallService.addItem("모텔", 2010900)
-                self.comboBox_smallService.addItem("민박", 2011000)
-                self.comboBox_smallService.addItem("게스트하우스", 2011100)
-                self.comboBox_smallService.addItem("홈스테이", 2011200)
-                self.comboBox_smallService.addItem("서비스드레지던스", 2011300)
-                self.comboBox_smallService.addItem("의료관광호텔", 2011400)
-                self.comboBox_smallService.addItem("소형호텔", 2011500)
-                self.comboBox_smallService.addItem("한옥스테이", 2011600)
-            elif (str(Service) == "서비스 선택"):
-                self.comboBox_smallService.clear()
-                self.comboBox_smallService.addItem("중분류 선택")
+            Service = self.comboBox_Service.currentData()
+            self.comboBox_smallService.clear()
+            comboboxSettingFunc.smallServicecomboboxSettingFunc(Service, self.comboBox_smallService)
 
         self.comboBox_Service.currentIndexChanged.connect(on_comboBox_currentIndexChanged)
 
@@ -178,6 +128,8 @@ class Ui_MainWindow(object):
         self.comboBox_City = QtWidgets.QComboBox(self.groupBox_2)
         self.comboBox_City.setGeometry(QtCore.QRect(80, 140, 231, 21))
         self.comboBox_City.setObjectName("comboBox_City")
+
+        self.comboBox_City.addItem("시군구")
 
         self.label_smallService = QtWidgets.QLabel(self.groupBox_2)
         self.label_smallService.setGeometry(QtCore.QRect(40, 60, 41, 21))
@@ -201,10 +153,6 @@ class Ui_MainWindow(object):
 
         self.retranslateUi(MainWindow)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
-
-
-
-
 
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
