@@ -4,10 +4,9 @@ import urllib.request
 import xml.etree.ElementTree as ET
 import webbrowser
 
-def Set_map():
+def Set_map(address):
     client_id = "SmUpG9NpShByzd1X1LbU"
     client_secret = "AcoyKCqpsb"
-    address = "정왕1동"    #주소입력
     encText = urllib.parse.quote(address)
     # url = "https://openapi.naver.com/v1/map/geocode?query=" + encText  # json 결과
     url = "https://openapi.naver.com/v1/map/geocode.xml?query=" + encText # xml 결과
@@ -31,8 +30,8 @@ def Set_map():
             print(y_point.text)
 
         level = 10
-        width = 600
-        height = 600
+        width = 491
+        height = 221
         url_png = "https://openapi.naver.com/v1/map/staticmap.bin?clientId=" + client_id + "&url=file://c&crs=EPSG:4326&center=" + x_point.text + "," + y_point.text + "&level=" + str(level) + "&w=" + str(width) + "&h=" + str(height) + "&baselayer=default&format=jpeg"
         request = urllib.request.Request(url_png)
         request.add_header("X-Naver-Client-Id", client_id)
@@ -41,14 +40,10 @@ def Set_map():
         rescode = response.getcode()
 
         if (rescode == 200):
-            webbrowser.open_new(url_png)
+            #webbrowser.open_new(url_png)
+            return url_png
         else:
             print("Error Code:" + rescode)
         #print(response_body.decode('utf-8'))
     else:
         print("Error Code:" + rescode)
-
-
-
-
-Set_map()
