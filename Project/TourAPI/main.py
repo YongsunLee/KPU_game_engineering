@@ -1,12 +1,20 @@
 # -*- coding : UTF-8 -*-
 import urllib.request
 import xml.etree.ElementTree as ET
+import Navermap
+import webbrowser
 
 def main():
     list = []
+<<<<<<< HEAD
     areaCode = 2
     url = "http://api.visitkorea.or.kr/openapi/service/rest/KorService/areaCode?ServiceKey=GY1KfpRH3x3fR4MpYAhLtGfpn%2BgzOAUXv86hfjkvhfZEi6BZSv2oEY%2BO28UjOyNhogZFh81Fv04pz5us%2FkIYkA%3D%3D&areaCode="+str(areaCode)+"&numOfRows=40&pageNo=1&MobileOS=ETC&MobileApp=AppTesting"
+=======
+    areaCode = 1
+    #url = "http://api.visitkorea.or.kr/openapi/service/rest/KorService/areaCode?ServiceKey=GY1KfpRH3x3fR4MpYAhLtGfpn%2BgzOAUXv86hfjkvhfZEi6BZSv2oEY%2BO28UjOyNhogZFh81Fv04pz5us%2FkIYkA%3D%3D&areaCode=" + str(areaCode) + "&numOfRows=100&MobileOS=ETC&MobileApp=AppTesting"
+>>>>>>> 1a8e607342af8af84ca27334083a876966ca566c
 
+    url = "http://api.visitkorea.or.kr/openapi/service/rest/KorService/areaBasedList?ServiceKey=GY1KfpRH3x3fR4MpYAhLtGfpn%2BgzOAUXv86hfjkvhfZEi6BZSv2oEY%2BO28UjOyNhogZFh81Fv04pz5us%2FkIYkA%3D%3D&areaCode="+ str(areaCode) +"&numOfRows=100&MobileOS=ETC&MobileApp=AppTesting"
     url2 = urllib.request.urlopen(url).read()
     #url2 = url2.decode("UTF-8")
     #et = ET.fromstring(str(url2))
@@ -21,17 +29,23 @@ def main():
 
     x_points = []
     y_points = []
+    nameList = []
 
-    for x_point in root.iter("code"):
+    for x_point in root.iter("mapx"):
         x_points.append(x_point.text)
-    for y_point in root.iter("name"):
+    for y_point in root.iter("mapy"):
         y_points.append(y_point.text)
+    for name in root.iter("title"):
+        nameList.append(name.text)
 
-    for i in x_points:
-        print(i)
-    for y in y_points:
-        print(y)
-
+    url_3 = Navermap.Set_map(x_points[0], y_points[0])
+    num = 0
+    for i in nameList:
+        print(x_points[num])
+        print(y_points[num])
+        print(nameList[num])
+        num += 1
+    webbrowser.open_new(url_3)
 
     #for i in iter:
     #    code = i.find("code")
