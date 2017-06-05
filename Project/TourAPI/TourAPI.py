@@ -10,6 +10,7 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 import urllib.request
 import xml.etree.ElementTree as ET
 import comboboxSettingFunc
+import buttonSettingFunc
 
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
@@ -138,6 +139,15 @@ class Ui_MainWindow(object):
         self.pushButton = QtWidgets.QPushButton(self.groupBox_2)
         self.pushButton.setGeometry(QtCore.QRect(210, 172, 101, 31))
         self.pushButton.setObjectName("pushButton")
+
+        def pushButton_clicked():
+            contentTypeId = self.comboBox_Service.currentData()
+            cat3 = self.comboBox_smallService.currentData()
+            areaCode = self.comboBox_Area.currentData()
+            sigunguCode = self.comboBox_City.currentData()
+            buttonSettingFunc.OkbuttonSettingFunc(contentTypeId, cat3, areaCode, sigunguCode)
+
+        self.pushButton.clicked.connect(pushButton_clicked)
 
         self.SearchLayout.addWidget(self.groupBox_2)
         MainWindow.setCentralWidget(self.centralwidget)
