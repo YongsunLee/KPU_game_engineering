@@ -23,9 +23,9 @@ class Ui_MainWindow(object):
         self.verticalLayoutWidget.setGeometry(QtCore.QRect(340, 10, 491, 221))
         self.verticalLayoutWidget.setObjectName("verticalLayoutWidget")
 
-        self.MapLayout = QtWidgets.QVBoxLayout(self.verticalLayoutWidget)
-        self.MapLayout.setContentsMargins(0, 0, 0, 0)
-        self.MapLayout.setObjectName("MapLayout")
+        #self.MapLayout = QtWidgets.QVBoxLayout(self.verticalLayoutWidget)
+        #self.MapLayout.setContentsMargins(0, 0, 0, 0)
+        #self.MapLayout.setObjectName("MapLayout")
 
         self.verticalLayoutWidget_2 = QtWidgets.QWidget(self.centralwidget)
         self.verticalLayoutWidget_2.setGeometry(QtCore.QRect(10, 240, 821, 251))
@@ -47,6 +47,66 @@ class Ui_MainWindow(object):
         self.verticalScrollBar.setGeometry(QtCore.QRect(800, 0, 16, 241))
         self.verticalScrollBar.setOrientation(QtCore.Qt.Vertical)
         self.verticalScrollBar.setObjectName("verticalScrollBar")
+
+        ##
+        self.graphicsView = QtWidgets.QGraphicsView(self.scrollAreaWidgetContents)
+        self.graphicsView.setGeometry(QtCore.QRect(10, 30, 321, 211))
+        self.graphicsView.setObjectName("graphicsView")
+
+        self.labelName = QtWidgets.QLabel(self.scrollAreaWidgetContents)
+        self.labelName.setGeometry(QtCore.QRect(10, 10, 31, 21))
+        self.labelName.setObjectName("labelName")
+
+        self.labelAddress_2 = QtWidgets.QLabel(self.scrollAreaWidgetContents)
+        self.labelAddress_2.setGeometry(QtCore.QRect(350, 130, 24, 12))
+        self.labelAddress_2.setObjectName("labelAddress_2")
+
+        self.line = QtWidgets.QFrame(self.scrollAreaWidgetContents)
+        self.line.setGeometry(QtCore.QRect(340, 120, 191, 16))
+        self.line.setFrameShape(QtWidgets.QFrame.HLine)
+        self.line.setFrameShadow(QtWidgets.QFrame.Sunken)
+        self.line.setObjectName("line")
+
+        self.groupBox = QtWidgets.QGroupBox(self.scrollAreaWidgetContents)
+        self.groupBox.setGeometry(QtCore.QRect(340, 10, 451, 111))
+        self.groupBox.setObjectName("groupBox")
+
+        self.labelNum = QtWidgets.QLabel(self.groupBox)
+        self.labelNum.setGeometry(QtCore.QRect(10, 20, 52, 20))
+        self.labelNum.setObjectName("labelNum")
+
+        self.labePage = QtWidgets.QLabel(self.groupBox)
+        self.labePage.setGeometry(QtCore.QRect(10, 50, 48, 12))
+        self.labePage.setObjectName("labePage")
+
+        self.labelAddress = QtWidgets.QLabel(self.groupBox)
+        self.labelAddress.setGeometry(QtCore.QRect(20, 80, 36, 12))
+        self.labelAddress.setObjectName("labelAddress")
+
+        self.lineEditNum = QtWidgets.QLineEdit(self.groupBox)
+        self.lineEditNum.setGeometry(QtCore.QRect(70, 20, 371, 20))
+        self.lineEditNum.setObjectName("lineEditNum")
+
+        self.lineEditHome = QtWidgets.QLineEdit(self.groupBox)
+        self.lineEditHome.setGeometry(QtCore.QRect(70, 50, 371, 20))
+        self.lineEditHome.setObjectName("lineEditHome")
+
+        self.lineEditAddress = QtWidgets.QLineEdit(self.groupBox)
+        self.lineEditAddress.setGeometry(QtCore.QRect(70, 80, 371, 20))
+        self.lineEditAddress.setObjectName("lineEditAddress")
+
+        self.pushButton_2 = QtWidgets.QPushButton(self.scrollAreaWidgetContents)
+        self.pushButton_2.setGeometry(QtCore.QRect(540, 120, 241, 23))
+        self.pushButton_2.setObjectName("pushButton_2")
+
+        self.textEdit = QtWidgets.QTextEdit(self.scrollAreaWidgetContents)
+        self.textEdit.setGeometry(QtCore.QRect(350, 150, 431, 121))
+        self.textEdit.setObjectName("textEdit")
+
+        self.lineEditName = QtWidgets.QLineEdit(self.scrollAreaWidgetContents)
+        self.lineEditName.setGeometry(QtCore.QRect(40, 10, 291, 20))
+        self.lineEditName.setObjectName("lineEditName")
+        ##
 
         self.scrollArea.setWidget(self.scrollAreaWidgetContents)
         self.verticalLayout_2.addWidget(self.scrollArea)
@@ -132,6 +192,13 @@ class Ui_MainWindow(object):
 
         self.comboBox_City.addItem("시군구")
 
+        ##
+        self.SearchLayout.addWidget(self.groupBox_2)
+        self.listView = QtWidgets.QListView(self.centralwidget)
+        self.listView.setGeometry(QtCore.QRect(340, 10, 481, 221))
+        self.listView.setObjectName("listView")
+        ##
+
         self.label_smallService = QtWidgets.QLabel(self.groupBox_2)
         self.label_smallService.setGeometry(QtCore.QRect(40, 60, 41, 21))
         self.label_smallService.setObjectName("label_smallService")
@@ -145,7 +212,7 @@ class Ui_MainWindow(object):
             cat3 = self.comboBox_smallService.currentData()
             areaCode = self.comboBox_Area.currentData()
             sigunguCode = self.comboBox_City.currentData()
-            buttonSettingFunc.OkbuttonSettingFunc(contentTypeId, cat3, areaCode, sigunguCode)
+            buttonSettingFunc.OkbuttonSettingFunc(contentTypeId, cat3, areaCode, sigunguCode, self.listView)
 
         self.pushButton.clicked.connect(pushButton_clicked)
 
@@ -173,6 +240,13 @@ class Ui_MainWindow(object):
         self.label_Area.setText(_translate("MainWindow", "지역"))
         self.label_smallService.setText(_translate("MainWindow", "소분류"))
         self.pushButton.setText(_translate("MainWindow", "검색"))
+        self.labelName.setText(_translate("MainWindow", "이름"))
+        self.labelAddress_2.setText(_translate("MainWindow", "개요"))
+        self.groupBox.setTitle(_translate("MainWindow", "Info"))
+        self.labelNum.setText(_translate("MainWindow", "우편번호"))
+        self.labePage.setText(_translate("MainWindow", "홈페이지"))
+        self.labelAddress.setText(_translate("MainWindow", "   주소"))
+        self.pushButton_2.setText(_translate("MainWindow", "View Map"))
 
 
 if __name__ == "__main__":

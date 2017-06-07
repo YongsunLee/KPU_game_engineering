@@ -137,16 +137,6 @@
          <string>검색</string>
         </property>
        </widget>
-       <zorder>label_Service</zorder>
-       <zorder>comboBox_smallService</zorder>
-       <zorder>label_City</zorder>
-       <zorder>comboBox_Area</zorder>
-       <zorder>comboBox_Service</zorder>
-       <zorder>label_Area</zorder>
-       <zorder>comboBox_City</zorder>
-       <zorder>label_smallService</zorder>
-       <zorder>pushButton</zorder>
-       <zorder>graphicsView</zorder>
       </widget>
      </item>
     </layout>
@@ -346,6 +336,16 @@
         <y>150</y>
         <width>431</width>
         <height>121</height>
+       </rect>
+      </property>
+     </widget>
+     <widget class="QLineEdit" name="lineEditName">
+      <property name="geometry">
+       <rect>
+        <x>40</x>
+        <y>10</y>
+        <width>291</width>
+        <height>20</height>
        </rect>
       </property>
      </widget>
