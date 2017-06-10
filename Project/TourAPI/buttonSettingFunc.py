@@ -18,7 +18,8 @@ def OkbuttonSettingFunc(contentTypeId, cat3, areaCode, sigunguCode, ListView):
     print(areaCode)
     print(sigunguCode)
 
-    #ListView.setModel(nameList)
+    for i in nameList:
+        ListView.addItem(str(i))
 
     nameList.clear()
 

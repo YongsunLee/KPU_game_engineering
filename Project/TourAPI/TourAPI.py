@@ -193,10 +193,9 @@ class Ui_MainWindow(object):
         self.comboBox_City.addItem("시군구")
 
         ##
-        self.SearchLayout.addWidget(self.groupBox_2)
-        self.listView = QtWidgets.QListView(self.centralwidget)
-        self.listView.setGeometry(QtCore.QRect(340, 10, 481, 221))
-        self.listView.setObjectName("listView")
+        self.listWidget = QtWidgets.QListWidget(self.centralwidget)
+        self.listWidget.setGeometry(QtCore.QRect(350, 10, 481, 221))
+        self.listWidget.setObjectName("listWidget")
         ##
 
         self.label_smallService = QtWidgets.QLabel(self.groupBox_2)
@@ -212,9 +211,16 @@ class Ui_MainWindow(object):
             cat3 = self.comboBox_smallService.currentData()
             areaCode = self.comboBox_Area.currentData()
             sigunguCode = self.comboBox_City.currentData()
-            buttonSettingFunc.OkbuttonSettingFunc(contentTypeId, cat3, areaCode, sigunguCode, self.listView)
+            self.listWidget.clear()
+            buttonSettingFunc.OkbuttonSettingFunc(contentTypeId, cat3, areaCode, sigunguCode, self.listWidget)
 
         self.pushButton.clicked.connect(pushButton_clicked)
+
+        def listwidget_cliked():
+            
+            pass
+
+        self.listWidget.clicked.connect(listwidget_cliked)
 
         self.SearchLayout.addWidget(self.groupBox_2)
         MainWindow.setCentralWidget(self.centralwidget)
