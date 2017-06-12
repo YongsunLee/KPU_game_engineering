@@ -4,7 +4,7 @@ import urllib.request
 import xml.etree.ElementTree as ET
 
 level = 13
-width = 491
+width = 471
 height = 221
 
 def Set_map_point(x_point, y_point):

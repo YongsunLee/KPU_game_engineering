@@ -2,6 +2,8 @@ import urllib.request
 import xml.etree.ElementTree as ET
 from PyQt5.QtGui import QPixmap
 from PyQt5.QtCore import Qt
+import re
+import Navermap
 
 def CitycomboboxSettingFunc(areaNum, groupBox):
     num = 0
@@ -53,7 +55,10 @@ def TouristDestinationSettingFunc(contentTypeId, cat3, areaCode, sigunguCode, to
     num = 0
     nameList = []
     idList = []
-    url = "http://api.visitkorea.or.kr/openapi/service/rest/KorService/areaBasedList?ServiceKey=GY1KfpRH3x3fR4MpYAhLtGfpn%2BgzOAUXv86hfjkvhfZEi6BZSv2oEY%2BO28UjOyNhogZFh81Fv04pz5us%2FkIYkA%3D%3D&contentTypeId=" + str(contentTypeId) + "&areaCode=" + str(areaCode) + "&sigunguCode=" + str(sigunguCode) + "&cat1=A01&cat2=A0101&cat3=" + str(cat3) + "&listYN=Y&MobileOS=ETC&MobileApp=AppTesting&arrange=A&numOfRows=20&pageNo=1"
+    if contentTypeId == 12:
+        url = "http://api.visitkorea.or.kr/openapi/service/rest/KorService/areaBasedList?ServiceKey=GY1KfpRH3x3fR4MpYAhLtGfpn%2BgzOAUXv86hfjkvhfZEi6BZSv2oEY%2BO28UjOyNhogZFh81Fv04pz5us%2FkIYkA%3D%3D&contentTypeId=" + str(contentTypeId) + "&areaCode=" + str(areaCode) + "&sigunguCode=" + str(sigunguCode) + "&cat1=A01&cat2=A0101&cat3=" + str(cat3) + "&listYN=Y&MobileOS=ETC&MobileApp=AppTesting&arrange=A&numOfRows=100"
+    elif contentTypeId == 32:
+        url = "http://api.visitkorea.or.kr/openapi/service/rest/KorService/areaBasedList?ServiceKey=GY1KfpRH3x3fR4MpYAhLtGfpn%2BgzOAUXv86hfjkvhfZEi6BZSv2oEY%2BO28UjOyNhogZFh81Fv04pz5us%2FkIYkA%3D%3D&contentTypeId=" + str(contentTypeId) + "&areaCode=" + str(areaCode) + "&sigunguCode=" + str(sigunguCode) + "&cat1=B02&cat2=B0201&cat3=" + str(cat3) + "&listYN=Y&MobileOS=ETC&MobileApp=AppTesting&arrange=A&numOfRows=100"
 
     url2 = urllib.request.urlopen(url).read()
     url2 = url2.decode("UTF-8")
@@ -73,14 +78,16 @@ def TouristDestinationSettingFunc(contentTypeId, cat3, areaCode, sigunguCode, to
     nameList.clear()
     idList.clear()
 
-def infomationSettingFunc(Dest, lineEditZipcode, lineEditHomepage, lineEditAddress, textEditOverview, graphicsView):
+def infomationSettingFunc(contentTypeId, Dest, lineEditZipcode, lineEditHomepage, lineEditAddress, textEditOverview, graphicsView, MapView):
     num = 0
     addrList = []
     zipcodeList = []
     overviewList = []
     firstimageList = []
+    mapList = []
     homepageList = []
-    url = "http://api.visitkorea.or.kr/openapi/service/rest/KorService/detailCommon?ServiceKey=GY1KfpRH3x3fR4MpYAhLtGfpn%2BgzOAUXv86hfjkvhfZEi6BZSv2oEY%2BO28UjOyNhogZFh81Fv04pz5us%2FkIYkA%3D%3D&contentTypeId=12&contentId="+str(Dest)+"&MobileOS=ETC&MobileApp=TourAPI3.0_Guide&defaultYN=Y&firstImageYN=Y&areacodeYN=Y&catcodeYN=Y&addrinfoYN=Y&mapinfoYN=Y&overviewYN=Y&transGuideYN=Y"
+
+    url = "http://api.visitkorea.or.kr/openapi/service/rest/KorService/detailCommon?ServiceKey=GY1KfpRH3x3fR4MpYAhLtGfpn%2BgzOAUXv86hfjkvhfZEi6BZSv2oEY%2BO28UjOyNhogZFh81Fv04pz5us%2FkIYkA%3D%3D&contentTypeId="+str(contentTypeId)+"&contentId="+str(Dest)+"&MobileOS=ETC&MobileApp=TourAPI3.0_Guide&defaultYN=Y&firstImageYN=Y&areacodeYN=Y&catcodeYN=Y&addrinfoYN=Y&mapinfoYN=Y&overviewYN=Y&transGuideYN=Y"
 
     url2 = urllib.request.urlopen(url).read()
     url2 = url2.decode("UTF-8")
@@ -92,17 +99,31 @@ def infomationSettingFunc(Dest, lineEditZipcode, lineEditHomepage, lineEditAddre
         homepage = i.find("homepage")
         overview = i.find("overview")
         zipcode = i.find("zipcode")
+        temp_map = Navermap.Set_map_address(addr1.text)
         addrList.append(addr1.text)
+        if firstimage == None:
+            firstimage = " "
         firstimageList.append(firstimage.text)
-        homepageList.append(homepage.text)
+        if homepage == None:
+            homepage = " "
+            homepageList.append(homepage)
+            Rehompage = re.search("(.*?)",homepageList[num]).group(1)
+        else :
+            homepageList.append(homepage.text)
+            Rehompage = re.search('>(.*?)</a>', homepageList[num]).group(1)
+        if overview == None:
+            overview = " "
         overviewList.append(overview.text)
+        if zipcode == None:
+            zipcode = " "
         zipcodeList.append(zipcode.text)
+        mapList.append(temp_map)
 
     for i in addrList:
         # 우편번호
         lineEditZipcode.setText(str(zipcodeList[num]))
         # 홈페이지
-        lineEditHomepage.setText(str(homepageList[num]))
+        lineEditHomepage.setText(Rehompage)
         # 주소
         lineEditAddress.setText(str(addrList[num]))
         # 개요
@@ -113,7 +134,11 @@ def infomationSettingFunc(Dest, lineEditZipcode, lineEditHomepage, lineEditAddre
         pixmap.loadFromData(data)
         scaledImg = pixmap.scaled(graphicsView.size(), Qt.KeepAspectRatio)
         graphicsView.setPixmap(scaledImg)
-        num = num + 1
+        # 지도 추가
+        map_data = urllib.request.urlopen(mapList[num]).read()
+        map = QPixmap()
+        map.loadFromData(map_data)
+        MapView.setPixmap(map)
 
     num = 0
     addrList.clear()
@@ -121,3 +146,5 @@ def infomationSettingFunc(Dest, lineEditZipcode, lineEditHomepage, lineEditAddre
     homepageList.clear()
     overviewList.clear()
     zipcodeList.clear()
+    mapList.clear()
+

@@ -1,21 +1,21 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <result>
-    <userquery><![CDATA[경상북도 문경시 문경읍 새재로 916-1]]></userquery>
+    <userquery><![CDATA[서울특별시 강북구 삼양로 500-18]]></userquery>
     <total>1</total>
     <items>
         <item>
-            <address><![CDATA[경상북도 문경시 문경읍 새재로  916-1]]></address>
+            <address><![CDATA[서울특별시 강북구 삼양로  500-18]]></address>
             <addrdetail>
                 <country><![CDATA[대한민국]]></country>
-                <sido><![CDATA[경상북도]]></sido>
-                <sigugun><![CDATA[문경시 문경읍]]></sigugun>
-                <dongmyun><![CDATA[새재로]]></dongmyun>
-                <rest><![CDATA[ 916-1]]></rest>
+                <sido><![CDATA[서울특별시]]></sido>
+                <sigugun><![CDATA[강북구]]></sigugun>
+                <dongmyun><![CDATA[삼양로]]></dongmyun>
+                <rest><![CDATA[ 500-18]]></rest>
             </addrdetail>
             <isRoadAddress>true</isRoadAddress>
             <point>
-                <x>128.0771759</x>
-                <y>36.7603538</y>
+                <x>127.0156106</x>
+                <y>37.6475838</y>
             </point>
         </item>
     </items>

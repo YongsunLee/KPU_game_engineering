@@ -175,17 +175,19 @@ class Ui_MainWindow(object):
         self.textEditOverview.setObjectName("textEditOverview")
 
         self.scrollArea.setWidget(self.scrollAreaWidgetContents)
-        self.listWidget = QtWidgets.QListWidget(self.centralwidget)
-        self.listWidget.setGeometry(QtCore.QRect(350, 10, 471, 221))
-        self.listWidget.setObjectName("listWidget")
+        self.MapView = QtWidgets.QLabel(self.centralwidget)
+        self.MapView.setGeometry(QtCore.QRect(350, 10, 471, 221))
+        self.MapView.setObjectName("MapView")
 
         def infomationToDestination():
+            contentTypeId = self.comboBox_Service.currentData()
             Dest = self.comboBox_TouristDestination.currentData()
             self.lineEditAddress.clear()
             self.lineEditHomepage.clear()
             self.lineEditZipcode.clear()
-            #self.graphicsView.claer()
-            comboboxSettingFunc.infomationSettingFunc(Dest, self.lineEditZipcode, self.lineEditHomepage, self.lineEditAddress, self.textEditOverview, self.graphicsView)
+            print(contentTypeId)
+            print(Dest)
+            comboboxSettingFunc.infomationSettingFunc(contentTypeId, Dest, self.lineEditZipcode, self.lineEditHomepage, self.lineEditAddress, self.textEditOverview, self.graphicsView, self.MapView)
 
         self.comboBox_TouristDestination.currentIndexChanged.connect(infomationToDestination)
 
