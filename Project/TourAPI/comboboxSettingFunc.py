@@ -2,6 +2,7 @@ import urllib.request
 import xml.etree.ElementTree as ET
 from PyQt5.QtGui import QPixmap
 from PyQt5.QtCore import Qt
+import re
 
 def CitycomboboxSettingFunc(areaNum, groupBox):
     num = 0
@@ -73,12 +74,13 @@ def TouristDestinationSettingFunc(contentTypeId, cat3, areaCode, sigunguCode, to
     nameList.clear()
     idList.clear()
 
-def infomationSettingFunc(Dest, lineEditZipcode, lineEditHomepage, lineEditAddress, textEditOverview, graphicsView):
+def infomationSettingFunc(Dest, lineEditZipcode, lineEditHomepage, lineEditAddress, textEditOverview, graphicsView, MapView):
     num = 0
     addrList = []
     zipcodeList = []
     overviewList = []
     firstimageList = []
+    mapList = []
     homepageList = []
     url = "http://api.visitkorea.or.kr/openapi/service/rest/KorService/detailCommon?ServiceKey=GY1KfpRH3x3fR4MpYAhLtGfpn%2BgzOAUXv86hfjkvhfZEi6BZSv2oEY%2BO28UjOyNhogZFh81Fv04pz5us%2FkIYkA%3D%3D&contentTypeId=12&contentId="+str(Dest)+"&MobileOS=ETC&MobileApp=TourAPI3.0_Guide&defaultYN=Y&firstImageYN=Y&areacodeYN=Y&catcodeYN=Y&addrinfoYN=Y&mapinfoYN=Y&overviewYN=Y&transGuideYN=Y"
 
@@ -90,13 +92,16 @@ def infomationSettingFunc(Dest, lineEditZipcode, lineEditHomepage, lineEditAddre
         addr1 = i.find("addr1")
         firstimage = i.find("firstimage")
         homepage = i.find("homepage")
+        #Rehompage = re.search('>"(.*?)"</a>',homepage)
         overview = i.find("overview")
         zipcode = i.find("zipcode")
+        temp_map = Set_map_address(addr1)
         addrList.append(addr1.text)
         firstimageList.append(firstimage.text)
         homepageList.append(homepage.text)
         overviewList.append(overview.text)
         zipcodeList.append(zipcode.text)
+        mapList.append(temp_map)
 
     for i in addrList:
         # 우편번호
@@ -113,6 +118,12 @@ def infomationSettingFunc(Dest, lineEditZipcode, lineEditHomepage, lineEditAddre
         pixmap.loadFromData(data)
         scaledImg = pixmap.scaled(graphicsView.size(), Qt.KeepAspectRatio)
         graphicsView.setPixmap(scaledImg)
+        # 지도 추가
+        map_data = urllib.request.urlopen(mapList[num]).read()
+        map = QPixmap()
+        map.loadFromData(map_data)
+        MapView.setPixmap(map)
+
         num = num + 1
 
     num = 0
