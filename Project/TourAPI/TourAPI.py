@@ -217,7 +217,8 @@ class Ui_MainWindow(object):
         self.pushButton.clicked.connect(pushButton_clicked)
 
         def listwidget_cliked():
-            
+            data = self.listWidget.currentItem()
+
             pass
 
         self.listWidget.clicked.connect(listwidget_cliked)
