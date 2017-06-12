@@ -3,7 +3,7 @@ import sys
 import urllib.request
 import xml.etree.ElementTree as ET
 
-level = 13
+level = 10
 width = 471
 height = 221
 
