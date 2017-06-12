@@ -108,9 +108,11 @@ def infomationSettingFunc(Dest, lineEditZipcode, lineEditHomepage, lineEditAddre
         # 개요
         textEditOverview.setText(str(overviewList[num]))
         # 사진 추가
-        #img1 = QPixmap(str(firstimage[num]))
-        #scaledImg = img1.scaled(graphicsView.size(), Qt.KeepAspectRatio)
-        #graphicsView.setPixmap(scaledImg)
+        data = urllib.request.urlopen(firstimageList[num]).read()
+        pixmap = QPixmap()
+        pixmap.loadFromData(data)
+        scaledImg = pixmap.scaled(graphicsView.size(), Qt.KeepAspectRatio)
+        graphicsView.setPixmap(scaledImg)
         num = num + 1
 
     num = 0

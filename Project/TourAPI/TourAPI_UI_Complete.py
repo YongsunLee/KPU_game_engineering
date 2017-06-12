@@ -5,7 +5,7 @@
 # Created by: PyQt5 UI code generator 5.6
 #
 # WARNING! All changes made in this file will be lost!
-
+import PyQt5
 from PyQt5 import QtCore, QtGui, QtWidgets
 import comboboxSettingFunc
 
