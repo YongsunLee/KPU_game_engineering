@@ -1,5 +1,7 @@
 import urllib.request
 import xml.etree.ElementTree as ET
+from PyQt5.QtGui import QPixmap
+from PyQt5.QtCore import Qt
 
 def CitycomboboxSettingFunc(areaNum, groupBox):
     num = 0
@@ -46,3 +48,74 @@ def smallServicecomboboxSettingFunc(serviceNum, groupBox):
     num = 0
     nameList.clear()
     codeList.clear()
+
+def TouristDestinationSettingFunc(contentTypeId, cat3, areaCode, sigunguCode, touristDestBox):
+    num = 0
+    nameList = []
+    idList = []
+    url = "http://api.visitkorea.or.kr/openapi/service/rest/KorService/areaBasedList?ServiceKey=GY1KfpRH3x3fR4MpYAhLtGfpn%2BgzOAUXv86hfjkvhfZEi6BZSv2oEY%2BO28UjOyNhogZFh81Fv04pz5us%2FkIYkA%3D%3D&contentTypeId=" + str(contentTypeId) + "&areaCode=" + str(areaCode) + "&sigunguCode=" + str(sigunguCode) + "&cat1=A01&cat2=A0101&cat3=" + str(cat3) + "&listYN=Y&MobileOS=ETC&MobileApp=AppTesting&arrange=A&numOfRows=20&pageNo=1"
+
+    url2 = urllib.request.urlopen(url).read()
+    url2 = url2.decode("UTF-8")
+    et = ET.fromstring(str(url2))
+    iter = et.getiterator("item")
+    for i in iter:
+        name = i.find("title")
+        contentId = i.find("contentid")
+        nameList.append(name.text)
+        idList.append(contentId.text)
+
+    for i in nameList:
+        touristDestBox.addItem(str(i), int(idList[num]))
+        num = num + 1
+
+    num = 0
+    nameList.clear()
+    idList.clear()
+
+def infomationSettingFunc(Dest, lineEditZipcode, lineEditHomepage, lineEditAddress, textEditOverview, graphicsView):
+    num = 0
+    addrList = []
+    zipcodeList = []
+    overviewList = []
+    firstimageList = []
+    homepageList = []
+    url = "http://api.visitkorea.or.kr/openapi/service/rest/KorService/detailCommon?ServiceKey=GY1KfpRH3x3fR4MpYAhLtGfpn%2BgzOAUXv86hfjkvhfZEi6BZSv2oEY%2BO28UjOyNhogZFh81Fv04pz5us%2FkIYkA%3D%3D&contentTypeId=12&contentId="+str(Dest)+"&MobileOS=ETC&MobileApp=TourAPI3.0_Guide&defaultYN=Y&firstImageYN=Y&areacodeYN=Y&catcodeYN=Y&addrinfoYN=Y&mapinfoYN=Y&overviewYN=Y&transGuideYN=Y"
+
+    url2 = urllib.request.urlopen(url).read()
+    url2 = url2.decode("UTF-8")
+    et = ET.fromstring(str(url2))
+    iter = et.getiterator("item")
+    for i in iter:
+        addr1 = i.find("addr1")
+        firstimage = i.find("firstimage")
+        homepage = i.find("homepage")
+        overview = i.find("overview")
+        zipcode = i.find("zipcode")
+        addrList.append(addr1.text)
+        firstimageList.append(firstimage.text)
+        homepageList.append(homepage.text)
+        overviewList.append(overview.text)
+        zipcodeList.append(zipcode.text)
+
+    for i in addrList:
+        # 우편번호
+        lineEditZipcode.setText(str(zipcodeList[num]))
+        # 홈페이지
+        lineEditHomepage.setText(str(homepageList[num]))
+        # 주소
+        lineEditAddress.setText(str(addrList[num]))
+        # 개요
+        textEditOverview.setText(str(overviewList[num]))
+        # 사진 추가
+        #img1 = QPixmap(str(firstimage[num]))
+        #scaledImg = img1.scaled(graphicsView.size(), Qt.KeepAspectRatio)
+        #graphicsView.setPixmap(scaledImg)
+        num = num + 1
+
+    num = 0
+    addrList.clear()
+    firstimageList.clear()
+    homepageList.clear()
+    overviewList.clear()
+    zipcodeList.clear()

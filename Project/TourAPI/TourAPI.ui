@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>837</width>
-    <height>539</height>
+    <height>570</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -124,17 +124,27 @@
          <string>소분류</string>
         </property>
        </widget>
-       <widget class="QPushButton" name="pushButton">
+       <widget class="QLabel" name="labelName">
         <property name="geometry">
          <rect>
-          <x>210</x>
-          <y>172</y>
-          <width>101</width>
-          <height>31</height>
+          <x>40</x>
+          <y>180</y>
+          <width>36</width>
+          <height>12</height>
          </rect>
         </property>
         <property name="text">
-         <string>검색</string>
+         <string>관광지</string>
+        </property>
+       </widget>
+       <widget class="QComboBox" name="comboBox_City_2">
+        <property name="geometry">
+         <rect>
+          <x>80</x>
+          <y>180</y>
+          <width>231</width>
+          <height>21</height>
+         </rect>
         </property>
        </widget>
       </widget>
@@ -147,7 +157,7 @@
       <x>10</x>
       <y>240</y>
       <width>819</width>
-      <height>249</height>
+      <height>281</height>
      </rect>
     </property>
     <property name="widgetResizable">
@@ -159,46 +169,17 @@
        <x>0</x>
        <y>0</y>
        <width>817</width>
-       <height>247</height>
+       <height>279</height>
       </rect>
      </property>
-     <widget class="QScrollBar" name="verticalScrollBar">
-      <property name="geometry">
-       <rect>
-        <x>800</x>
-        <y>0</y>
-        <width>16</width>
-        <height>241</height>
-       </rect>
-      </property>
-      <property name="mouseTracking">
-       <bool>false</bool>
-      </property>
-      <property name="orientation">
-       <enum>Qt::Vertical</enum>
-      </property>
-     </widget>
      <widget class="QGraphicsView" name="graphicsView">
       <property name="geometry">
        <rect>
         <x>10</x>
-        <y>30</y>
-        <width>321</width>
-        <height>211</height>
-       </rect>
-      </property>
-     </widget>
-     <widget class="QLabel" name="labelName">
-      <property name="geometry">
-       <rect>
-        <x>10</x>
         <y>10</y>
-        <width>31</width>
-        <height>21</height>
+        <width>321</width>
+        <height>261</height>
        </rect>
-      </property>
-      <property name="text">
-       <string>이름</string>
       </property>
      </widget>
      <widget class="QLabel" name="labelAddress_2">
@@ -219,7 +200,7 @@
        <rect>
         <x>340</x>
         <y>120</y>
-        <width>191</width>
+        <width>441</width>
         <height>16</height>
        </rect>
       </property>
@@ -309,19 +290,6 @@
        </property>
       </widget>
      </widget>
-     <widget class="QPushButton" name="pushButton_2">
-      <property name="geometry">
-       <rect>
-        <x>540</x>
-        <y>120</y>
-        <width>241</width>
-        <height>23</height>
-       </rect>
-      </property>
-      <property name="text">
-       <string>View Map</string>
-      </property>
-     </widget>
      <widget class="QTextEdit" name="textEdit">
       <property name="geometry">
        <rect>
@@ -332,16 +300,6 @@
        </rect>
       </property>
      </widget>
-     <widget class="QLineEdit" name="lineEditName">
-      <property name="geometry">
-       <rect>
-        <x>40</x>
-        <y>10</y>
-        <width>291</width>
-        <height>20</height>
-       </rect>
-      </property>
-     </widget>
     </widget>
    </widget>
    <widget class="QListWidget" name="listWidget">
@@ -349,7 +307,7 @@
      <rect>
       <x>350</x>
       <y>10</y>
-      <width>481</width>
+      <width>471</width>
       <height>221</height>
      </rect>
     </property>
